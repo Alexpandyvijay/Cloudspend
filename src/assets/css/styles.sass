@@ -1,0 +1,589 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@fortawesome/fontawesome-free/css/all.css"
+
+:root 
+	--main-background-color: #FFFFFF
+	--main-text-color: #333
+	--screen-background-color: #E9EAED
+	--box-shadow-color: #E1E1E1
+	--main-border-color: rgba(191, 190, 188, 0.7)
+	--secondory-border-color: #E6E6E6
+	--input-field-border-color: #CCCCCC
+	--hover-table-row: whitesmoke
+	--table-row-border: #DCE6ED
+	--highlight-gray: #777777
+	--gridster-bg-color: #eee
+	--gridster-item-bg: white
+	--box-shadow-action-context: #C8C8C8
+
+
+[data-theme='dark']
+	--main-background-color: #22242A
+	--main-text-color: #EEE
+	--screen-background-color: #0F0F14
+	--box-shadow-color: #000000
+	--main-border-color: #333539
+	--secondory-border-color: #333539
+	--input-field-border-color: #333539
+	--hover-table-row: #31343B
+	--table-row-border: #333539
+	--highlight-gray: #aaa
+	--gridster-bg-color: #31343B
+	--gridster-item-bg: #22242A
+	--box-shadow-action-context: #000000
+
+
+@font-face
+	font-family: Roboto-Regular
+	src: url(../fonts/Roboto-Regular.ttf)
+
+@font-face
+	font-family: Lato-Light
+	src: url(../fonts/Lato-Light.ttf) format('truetype')
+
+@font-face
+	font-family: 'Lato-Light'
+	src: url(../fonts/Lato-Light.ttf) format('truetype')
+
+@font-face
+	font-family: 'Lato-Regular'
+	src: url('../fonts/Lato-Regular.ttf') format('truetype')
+
+@font-face
+	font-family: 'Lato-Bold'
+	src: url('../fonts/Lato-Bold.ttf') format('truetype')
+
+@font-face
+	font-family: "Cloudspend-Icon"
+	src: url('../fonts/cloudspend.eot') format('embedded-opentype'), url('../fonts/cloudspend.ttf') format('truetype'), url('../fonts/cloudspend.woff') format('woff'), url('../fonts/cloudspend.svg') format('svg')
+
+@font-face
+	font-family: "Glyphicon-Icon"
+	src: url('../fonts/glyphicons-halflings-regular.eot') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.svg') format('svg')
+
+
+*, body
+	margin: 0px
+	font-family: Lato-Regular
+	color: var(--main-text-color)
+
+*::-webkit-scrollbar 
+	width: 4px
+	height: 4px
+
+*::-webkit-scrollbar-thumb
+	background-color: #aaa
+	border-radius: 10px
+
+*::-webkit-scrollbar-track
+	background: transparent
+
+a
+	cursor: pointer
+	color: #428BCA
+	text-decoration: none
+
+div
+	box-sizing: border-box
+
+.icon 
+	cursor: pointer
+	> i
+		color: var(--highlight-gray)
+		font-size: 12px
+
+.btn
+	border-radius: 4px
+	line-height: 12px
+	padding: 6px 12px
+	cursor: pointer
+	white-space: nowrap
+	font-size: 14px
+	height: 30px
+
+.field
+	border: 1px solid var(--input-field-border-color)
+	background-color: var(--main-background-color)
+	padding: 10px
+	border-radius: 5px
+	width: 40%
+	margin-right: 15px
+
+.form-row
+	display: flex
+	flex-direction: column
+	gap: 10px
+
+	label
+		display: grid
+		grid-template-columns: 1fr 2fr
+		box-sizing: border-box
+
+		.field
+			width: 80% !important
+
+.switch
+	position: relative
+	display: inline-block
+	width: 40px
+	height: 24px
+
+.switch input 
+	opacity: 0
+	width: 0
+	height: 0
+
+.slider-span
+	position: absolute
+	cursor: pointer
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	background-color: white
+	-webkit-transition: .4s
+	transition: .4s
+
+.slider-span:before
+	position: absolute
+	content: ""
+	height: 16px
+	width: 16px
+	left: 4px
+	bottom: 4px
+	background-color: #ccc
+	-webkit-transition: .4s
+	transition: .4s
+
+input:checked + .slider-span
+	background: #41C5B7
+
+input:focus + .slider-span
+	box-shadow: 0 0 1px #2196F3
+
+input:checked + .slider-span:before
+	-webkit-transform: translateX(16px)
+	-ms-transform: translateX(16px)
+	transform: translateX(16px)
+
+.slider-span.round
+	border-radius: 24px
+
+.slider-span.round:before
+	border-radius: 50%
+
+.field:focus
+	outline: none
+
+.real-nav-btn
+	color: #FFFFFF
+	background: #41C5B7
+	border: 1px solid #41C5B7
+
+.static
+	border: 1px solid #CCCCCC
+	background: #CCCCCC
+	color: #000000
+
+.disable
+	pointer-events: none
+
+.txt-color
+	color: var(--main-text-color)
+
+.rotate
+	transform: rotate(180deg)
+
+.widget-wrap
+	display: flex
+	flex-direction: column
+	width: 100%
+	height: 100%
+	justify-content: space-around
+	position: relative
+
+	.widget-action
+		position: absolute
+		top: 0px
+		width: 100%
+		height: 30px
+		background: rgba(0,0,0,0.1)
+		display: grid
+		grid-template-columns: 1fr max-content max-content
+		transform: translate(0, -40px)
+		overflow: hidden
+		align-items: center
+		transition: transform 0.5s
+		gap: 10px
+		padding: 5px 10px
+
+.widget-wrap:hover 
+	.widget-action
+		transform: translate(0, 0)
+		
+.mi-wrap-cnt
+	height: 100vh
+	width: 100%
+	display: flex
+	flex-direction: column
+
+	.view
+		width: 100%
+		height: 100vh
+		display: flex
+		flex-direction: column
+		background: var(--screen-background-color)
+
+		.brdcrums
+			padding: 10px 15px
+			border-top: 1px solid var(--secondory-border-color)
+			border-bottom: 1px solid var(--secondory-border-color)
+			font-size: 12px
+			background-color: var(--main-background-color)
+			box-shadow: 1px 2px 3px var(--box-shadow-color)
+
+			span > span
+				margin: 0px 5px
+
+		.main-view-cnt
+			display: flex
+			flex-direction: column
+			padding: 20px
+			flex-grow: 10
+
+			.view-header
+				display: flex
+
+				.input-wrap
+					display: flex
+					justify-content: left
+					width: 50%
+					
+					.grid-col
+						padding: 0px
+						display: flex
+						align-items: center
+						justify-content: center
+						width: 25%
+						margin: 0px !important
+
+						> input
+							border: none !important
+							outline: none
+							padding: 0px 10px
+							width: 20px
+
+						> input:focus
+							outline: none
+
+						> label
+							padding: 10px
+							border-left: solid var(--input-field-border-color)
+
+					.form 
+						display: flex
+						justify-content: left
+						width: 70%
+
+				.view-name
+					width: 50%
+
+				.btn-wrap
+					width: 50%
+					display: flex
+					justify-content: right
+
+					.btn
+						margin-left: 15px
+			
+			.gridster-wrap
+				width: 100%
+				height: 100%
+				margin: 20px 0px
+				border-radius: 4px
+				box-shadow: 0 1px 1px 1px var(--box-shadow-color)
+				border: 1px solid var(--main-border-color)
+				background-color: var(--main-background-color)
+				display: flex
+				flex-direction: column
+
+				.preview-header
+					font-size: 14px
+					display: flex
+					justify-content: space-between
+					padding: 10px 15px
+					border-top: 1px solid var(--secondory-border-color)
+					border-bottom: 1px solid var(--secondory-border-color)
+					font-size: 12px
+					background-color: var(--main-background-color)
+					z-index: 2
+
+					.action-wrap
+						position: relative
+
+						.context
+							background-color: var(--main-background-color)
+							position: absolute
+							box-shadow: -1px 3px 8px 0 var(--box-shadow-action-context)
+							padding: 10px
+							right: 0px
+							top: 20px
+							display: none
+							flex-direction: column
+							gap: 10px
+							width: max-content
+
+							.action-event > span
+								padding: 0px 10px
+								
+								> i
+									transition: transform 0.5s
+
+							> div
+								border-bottom: 1px solid var(--table-row-border)
+								padding: 5px 0px
+								cursor: pointer
+
+								.subList
+									display: none
+									flex-direction: column
+									padding-left: 5px
+									gap: 5px
+									padding: 10px 0px 5px 10px
+
+									span
+										word-spacing: 10px
+										border-bottom: 1px solid var(--table-row-border)
+										padding: 5px
+
+								.display-subList
+									display: flex
+
+						.display-context
+							display: flex
+
+					.icon > i
+						font-size: 14px !important
+
+				.preview-cnt
+					flex-grow: 10
+					z-index: 1
+
+					.gridster-main
+						background: var(--gridster-bg-color)
+
+						.gridster-items
+							box-shadow: 0 1px 1px 1px var(--box-shadow-color)
+							background: var(--gridster-item-bg)
+
+					gridster-preview
+						background: none
+
+.view-table
+	display: flex
+	flex-direction: column
+	width: 100%
+	height: 100vh
+	background: var(--screen-background-color)
+	padding: 20px
+	gap: 20px
+
+	.main-header
+		display: flex
+		justify-content: space-between
+
+		.main-name
+			font-size: 18px
+
+		.list-header-btn
+			display: flex
+			gap: 10px
+
+			.mode
+				display: flex
+				align-items: center
+				gap: 10px
+
+
+	.main-btm 
+		flex-grow: 10
+		
+		.cs-table
+			border-radius: 4px
+			box-shadow: 0 1px 1px 1px var(--box-shadow-color)
+			border: 1px solid var(--main-border-color)
+			background-color: var(--main-background-color)
+			padding: 20px
+
+			table
+				width: 100%
+				border-collapse: collapse
+
+				th, td
+					border-bottom: 1px solid var(--table-row-border)
+					padding: 10px
+					text-align: left
+					border-collapse: collapse
+
+					.icon > i
+						padding: 5px
+
+				th
+					color: var(--highlight-gray)
+					font-size: 15px
+					text-align: left
+					font-weight: 400
+
+				.share-td
+					cursor: pointer
+
+				tr:not(:first-child):hover
+					background: var(--hover-table-row)
+
+				td
+					font-size: 14px
+					position: relative
+
+					.context
+						background-color: var(--main-background-color)
+						position: absolute
+						box-shadow: 0 1px 1px 1px var(--box-shadow-color)
+						padding: 10px
+						left: 30px
+						top: 20px
+						display: none
+						flex-direction: column
+						gap: 10px
+
+						span
+							word-spacing: 10px
+							border-bottom: 1px solid var(--table-row-border)
+							padding: 5px 0px
+							cursor: pointer
+
+					.display-context
+						display: flex
+
+.spend-analysis
+	width: 100%
+	display: flex
+	flex-direction: column
+	gap: 10px
+
+	.analysis-name
+		font-size: 14px
+		font-weight: 600
+
+	.chart-container
+		display: flex
+		flex-wrap: wrap
+		gap: 10px
+
+		.spend-widget
+			width: 200px
+			height: 50px
+			display: flex
+			justify-content: center
+			align-items: center
+			position: relative
+			border: 1px solid var(--input-field-border-color)
+			border-radius: 10px
+			cursor: pointer
+			font-size: 12px
+
+			.hide-radio
+				position: absolute
+				visibility: hidden
+				top: 0px
+				left: 0px
+				height: 100% !important
+				z-index: 2
+
+		.spend-widget:hover
+			background: var(--hover-table-row)
+		.selected-account
+			background: var(--hover-table-row)
+
+@media only screen and (max-width: 500px)
+	.icon > i
+		font-size: 10px !important
+
+	.btn
+		font-size: 12px !important
+
+	.mi-wrap-cnt .brdcrums
+		font-size: 10px !important
+
+	.main-name
+		font-size: 16px !important
+
+	th
+		font-size: 13px !important
+
+	td
+		font-size: 12px !important
+
+	.analysis-name
+		font-size: 12px !important
+
+	.spend-widget
+		font-size: 10px !important
+
+	.view-header
+		flex-direction: column
+		gap: 15px
+
+		.input-wrap
+			width: 100% !important
+			width: 100% !important
+			justify-content: space-between
+			flex-direction: column
+			gap: 15px
+
+			.grid-col
+				width: 40% !important
+
+			.form 
+				width: 100% !important
+				justify-content: space-between
+				flex-direction: column
+				gap: 15px
+
+				.field
+					margin-right: 0px
+					width: auto !important
+
+		.view-name
+			width: 100% !important
+
+		.btn-wrap
+			width: 100% !important
+			flex-direction: column
+			gap: 15px
+
+			.btn
+				margin-left: 0px !important
+
+@media only screen and (max-width: 1000px)
+
+	.input-wrap
+		flex-direction: column
+		gap: 15px
+		
+		.form
+			width: 100% !important
+			gap: 15px
+
+		.grid-col
+			width: fit-content !important
+
+	.btn-wrap
+		flex-direction: column
+		gap: 15px
+
+
+
+
+
+

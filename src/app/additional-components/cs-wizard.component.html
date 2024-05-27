@@ -1,0 +1,35 @@
+<div class="p15">
+    <div *ngIf="options.stepList.length > 0" class="reports-wizard flex-row fw gap15">
+        <div class="box brx-none pi0 reports-wizard-steps">
+            <h3 class="m0 txt18 underline p15">{{(options.title ? options.title:'')}}</h3>
+            <div class="steps pl20">
+                <ul class="list-unstyled">
+                    <ng-container *ngFor="let istep of options.stepList; let index = index">
+                        <li [class.active]="index === step" [class.completed]="index < step" (click)="jumpStep(index)">
+                            <span>{{('Step '+(index+1))}}</span>
+                            <div>{{istep.title}}</div>
+                        </li>
+                    </ng-container>
+                </ul>    
+            </div>
+        </div>
+        <div class="reports-content flex-column flex-even fw fh box brx-none p0" #wizard [init]="{step: options.stepList[step]}">
+            <div class="flex-even flex-vcenter underline p15">
+                <cs-header [label]="wizard.init.step.title" [help]="wizard.init.step.info"/>
+            </div>
+            <div class="report-content-body p20">
+                <ng-content [step]="step"></ng-content>
+            </div>
+            <div class="upperline p15 flex-even gap15">
+                <div>
+                    <button class="static btn" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="flex-right gap15">
+                    <button *ngIf="step > 0" class="btn static" (click)="prevStep()">Back</button>
+                    <button *ngIf="step < options.stepList.length-1" class="btn real-nav-btn" (click)="nextStep()">{{options.nextKey}}</button>
+                    <button *ngIf="step == options.stepList.length-1" class="btn real-nav-btn" (click)="nextStep()">{{options.submitKey}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+<ng-template #STEP1>
+    <div class="spend-analysis">
+        <div class="analysis-name">Spend Analysis</div>
+        <div class="chart-container">
+            <div class="spend-widget" *ngFor="let widget of widgetList" (click)="onClickHandlerForAccount($event, widget.value)" #accounts [ngClass]="{'selected-account': selectedWidget?.account === widget.value}">
+                {{widget.label}}
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #STEP2>
+    <form [formGroup]="addWidgetForm" class="form-row">
+        <label for="name">Name
+            <input class="field" type="text" name="widgetName" formControlName="widgetName" placeholder="widget name">
+        </label>
+
+        <label>Select Accounts 
+            <select class="field" name="account" formControlName="account">
+                <option value="">No account selected</option>
+                <option *ngFor="let widget of widgetList" value={{widget.value}}>{{widget.label}}</option>
+            </select>
+        </label>
+
+        <label for="tags">Tags 
+            <input class="field" type="text" name="tags" formControlName="tags" placeholder="tags">
+        </label>
+        <label for="date_range">Date
+            <input class="field" type="text" name="date_range" formControlName="date_range" placeholder="date range">
+        </label>
+        <label for="cost_type">Cost Type
+            <input class="field" type="text" name="cost_type" formControlName="cost_type" placeholder="cost type">
+        </label>
+    </form>
+</ng-template>
+<ng-template #bigLoader>
+</ng-template>
+
+<ng-template #elseBlock>
+    <cs-wizard 
+        [(step)]="currentStep" 
+        [options]="{
+            title: 'Configure Widget',
+            nextKey: (widgetState == 'add' ? 'Next':'Update'),
+            submitKey: (widgetState == 'add' ? 'Submit':'Save'),
+            stepList: [{
+                title: 'Choose widget type',
+                info: 'Choose widget type',
+                completed: false,
+            },{
+                title: 'Configure widget',
+                info: 'Configure widget',
+                completed: false,
+            }],
+        }" 
+        (actionCallback)="wizardCallBack($event)"
+    >
+        <div *ngIf="!loader; else bigLoader" class="fw fh cs-grid child-page {{widgetState == 'edit' ? 'edit-entity-ui':'add-entity-ui'}}">
+            <form [formGroup]="addWidgetForm" class="flex-column fh gap12 add-budget-form">
+                <ng-container *ngIf="currentStep == 0; then STEP1"></ng-container>
+                <ng-container *ngIf="currentStep == 1; then STEP2"></ng-container>
+            </form>
+        </div>
+    </cs-wizard>
+</ng-template>
+
+
+<div class="view">
+    <div class="brdcrums">
+        <span *ngFor="let link of pathList;  let last = last;">
+            <a (click)="routeUrl(link.path)" [ngClass]="{'disable txt-color':last || !link.path}">
+                {{link.label}}
+            </a>
+            <span *ngIf="!last">/</span>
+        </span>
+    </div>
+    <div *ngIf="localNavigation === 'edit-dashboard' else elseBlock" class="main-view-cnt">
+        <div class="view-header">
+            <div class="input-wrap">
+                <form class="form" [formGroup]="dashboardForm">
+                    <input id="name" class="field" type="text" formControlName="name" placeholder="Dashboard title">
+                    <input id="description" class="field" type="text" formControlName="description" placeholder="Description">
+                </form>
+                <div class="grid-col field">
+                    <input type="number" placeholder="8" [(ngModel)]="gridSize" (ngModelChange)="onNgModelChange($event)">
+                    <label>Grid(columns)</label>
+                </div>
+            </div>
+            
+            <div class="btn-wrap">
+                <button class="static btn" (click)="autoArrange()">Auto Arrange</button>
+                <button class="static btn" (click)="routeUrl('/view/'+selectedDashboardId)">Preview</button>
+                <button class="real-nav-btn btn" type="button" (click)="localRoute('add-widget')">Add Widget</button>
+                <button class="real-nav-btn btn" (click)="updateDashboard()">Save</button>
+            </div>
+        </div>
+        <div class="gridster-wrap">
+            <div class="preview-cnt">
+                <gridster class="gridster-main" [options]="options">
+                    <gridster-item class="gridster-items" [item]="item" *ngFor="let item of widgets">
+                        <div class="widget-wrap">
+                            <div *ngIf="preview" class="widget-action">
+                                <div>{{item.name}}</div>
+                                <span class="icon" (click)="editWidget(item.id)">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                                <span class="icon" (click)="deleteWidget(item.id)">
+                                    <i class="fa-solid fa-trash"></i>
+                                </span>
+                            </div>
+                            <cs-barchart></cs-barchart>
+                        </div>
+                    </gridster-item>
+                </gridster>
+            </div>
+        </div>
+    </div>
+</div>
+

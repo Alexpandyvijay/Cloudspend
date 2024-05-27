@@ -1,0 +1,62 @@
+<div class="view">
+    <div class="brdcrums">
+        <span *ngFor="let link of pathList;  let last = last;">
+            <a (click)="routeUrl(link.path)" [ngClass]="{'disable txt-color':last || !link.path}">
+                {{link.label}}
+            </a>
+            <span *ngIf="!last">/</span>
+        </span>
+    </div>
+    <div class="main-view-cnt">
+        <div class="view-header">
+            <div class="view-name">{{dashboard?.name}}
+                <span class="icon"><i class="fa-solid fa-circle-info"></i></span>
+            </div>
+            <div class="btn-wrap">
+                <button class="real-nav-btn btn" type="button" (click)="redirectionToEditPage()">Edit</button>
+                <button class="static btn">Schedule Report</button>
+                <button class="static btn">Share</button>
+            </div>
+        </div>
+        <div class="gridster-wrap">
+            <div class="preview-header">
+                <div>Preview</div>
+                <div class="action-wrap">
+                    <span class="icon" (click)="contextAction($event)"><i class="fa-solid fa-bars"></i></span>
+                    <div class="context">
+                        <div *ngFor="let event of actions" (click)="event.action()">
+                            <div class="action-event">
+                                {{event.name}}
+                                <span class="icon" (click)="dropDown()" *ngIf="event.subList" #rotate><i class="fa-solid fa-caret-up"></i></span>
+                            </div>
+                            <div *ngIf="event.subList" class="subList">
+                                <span class="icon" *ngFor="let device of event.subList" (click)="device.action()">
+                                    <i class={{device.icon}}></i> 
+                                    {{device.name}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-cnt">
+                <gridster class="gridster-main" [options]="options">
+                    <gridster-item class="gridster-items" [item]="item" *ngFor="let item of widgets">
+                        <div class="widget-wrap">
+                            <div *ngIf="preview" class="widget-action">
+                                <div class="widget-name">{{item.name}}</div>
+                                <span class="icon">
+                                    <i class="fas fa-edit"></i>
+                                </span>
+                                <span class="icon">
+                                    <i class="fa-solid fa-trash"></i>
+                                </span>
+                            </div>
+                            <cs-barchart></cs-barchart>
+                        </div>
+                    </gridster-item>
+                  </gridster>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="view-table">
+    <div class="main-header">
+        <div class="main-name">
+            Custom Dashboard
+            <span class="icon"><i class="fa-solid fa-circle-info"></i></span>
+        </div>
+        <div class="list-header-btn">
+            <div class="mode">Dark
+                <label class="switch">
+                    <input type="checkbox" (click)="setTheme()" #modebtn>
+                    <span class="slider-span round"></span>
+                </label>
+            </div>
+            <button class="real-nav-btn btn" type="button" (click)="addDashboard()">Add Dashboard</button>
+        </div>
+    </div>
+    <div class="main-btm">
+        <div class="cs-table">
+            <table>
+                <tr>
+                    <th>
+                        <span class="icon"><i class="fa-solid fa-filter"></i></span>
+                        Display Name
+                    </th>
+                    <th>Description</th>
+                    <th>
+                        Action
+                        <span class="icon"><i class="fa-solid fa-circle-info"></i></span>
+                    </th>
+                </tr>
+                <tr *ngFor="let dashboard of dashboards">
+                    <td class="share-td" (click)="routeUrl('/view/'+ dashboard.id)">{{dashboard.name}} 
+                        <span class="icon"><i class="fa-solid fa-up-right-from-square"></i></span>
+                    </td>
+                    <td>{{dashboard.description}}</td>
+                    <td>
+                        <span class="icon" (click)="contextAction($event)">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </span>
+                        <div class="context">
+                            <span class="icon" *ngFor="let event of action" (click)="event.action(dashboard.id)">
+                                <i class={{event.class}}></i>
+                                {{event.name}}
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
